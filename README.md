@@ -1,6 +1,8 @@
 # Mock Data Generator
 
-Project used to generate sample data for several common secenarios
+Proof of concept for generating sample Ecommerce data using Faker.js
 
-* Ecommerce
-* Sample
+### Instructions
+
+npm install
+npm start

@@ -1,27 +1,57 @@
 var fs = require('fs');
-var { Ecommerce } = require('./Ecommerce');
+var faker = require('faker/index');
 
-var ecom = new Ecommerce('yo!');
-ecom.generateData();
-// let sample = new Ecommerce('my Name');
-// sample.print();
+var ordersObj = {} // empty Object
+var key = 'Orders';
+ordersObj[key] = []; // empty Array, which you can push() values into
 
-// var fs = require('fs');
+for (var orderCounter = 500; orderCounter > 0; orderCounter--) {
+    // order
+    var order = {
+        billing_fname: faker.name.firstName(),
+        billing_lname: faker.name.lastName(),
+        billing_address1: faker.address.streetAddress(),
+        billing_address2: faker.address.secondaryAddress(),
+        billing_city: faker.address.city(),
+        billing_state: faker.address.stateAbbr(),
+        billing_zip: faker.address.zipCode(),
+        process_date: faker.date.recent(),
+    };
 
-// var faker= require('faker/index');
+    // recipient
+    order['recipients'] = [];
+    var numRecipients = Math.floor(Math.random() * 2) + 1 // each order will have between 1 and 2 recipients
+    for (var recipientCounter = numRecipients; recipientCounter > 0; recipientCounter--) {
+        var recipient = {
+            shipping_fname: faker.name.firstName(),
+            shipping_lname: faker.name.lastName(),
+            shipping_address1: faker.address.streetAddress(),
+            shipping_address2: faker.address.secondaryAddress(),
+            shipping_city: faker.address.city(),
+            shipping_state: faker.address.stateAbbr(),
+            shipping_zip: faker.address.zipCode(),
+        }
+        order['recipients'].push(recipient);
 
+        // items
+        recipient['items'] = [];
+        var numItems = Math.floor(Math.random() * 4) + 1 // each recipient will have between 1 and 3 items
+        for (var itemCounter = numItems; itemCounter > 0; itemCounter--) {
+            var item = {
+                name: faker.commerce.productName(),
+                price: faker.commerce.price(0, 100), // price between $0 and $100
+                qty: Math.floor(Math.random() * 6) + 1, // qty between 1 and 6
+                sku: faker.random.alphaNumeric(5).toUpperCase(),
+                category: faker.commerce.department(),
+                color: faker.commerce.color(),
+                material: faker.commerce.productMaterial()
+            }
+            recipient['items'].push(item);
+        }
+    }
+    ordersObj[key].push(order);
+}
 
-// // generate dataSet as example
-// fs.writeFile(__dirname + '/dataSet.json',  JSON.stringify(faker.helpers.userCard()), function() {
-//   console.log("dataSet generated successfully!");
-// });
-// // generate bigDataSet as example
-// var bigSet = [];
-
-// for(i = 20; i >= 0; i--){
-//   bigSet.push(faker.helpers.userCard());
-// };
-
-// fs.writeFile(__dirname + '/bigDataSet.json',  JSON.stringify(bigSet), function() {
-//   console.log("bigDataSet generated successfully!");
-// });
+fs.writeFile(__dirname + '/Orders.data.json', JSON.stringify(ordersObj), function () {
+    console.log("Order data generated successfully!");
+});
