@@ -6,5 +6,8 @@ Proof of concept for generating sample Ecommerce data using Faker.js
 
 ```bash
 npm install
-npm start
+npm start person 
+npm start inline
+npm start hookio
+npm start orders
 ```

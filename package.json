@@ -4,11 +4,15 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "faker": "^4.1.0"
+    "faker": "4.1.0",
+    "opn": "5.3.0"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node main.js",
+    "person": "node person.js",
+    "inline": "node inline.js", 
+    "hookio": "node microservice.js",
+    "orders": "node ecommerce.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kyle Ballard",

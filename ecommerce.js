@@ -5,7 +5,7 @@ var ordersObj = {} // empty Object
 var key = 'Orders';
 ordersObj[key] = []; // empty Array, which you can push() values into
 
-for (var orderCounter = 500; orderCounter > 0; orderCounter--) {
+for (var orderCounter = 50; orderCounter > 0; orderCounter--) {
     // order
     var order = {
         billing_fname: faker.name.firstName(),
@@ -52,6 +52,6 @@ for (var orderCounter = 500; orderCounter > 0; orderCounter--) {
     ordersObj[key].push(order);
 }
 
-fs.writeFile(__dirname + '/Orders.data.json', JSON.stringify(ordersObj), function () {
+fs.writeFile(__dirname + '/Orders.data.json', JSON.stringify(ordersObj, null, 2), function () {
     console.log("Order data generated successfully!");
 });
